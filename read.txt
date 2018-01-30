@@ -1,0 +1,39 @@
+crée bundel  :
+
+    php bin/console generate:bundle
+    php ../composer.phar update
+    php bin/console server:run
+    php bin/console doctrine:database:drop --force
+    php bin/console doctrine:generate:entity
+
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:update --dump-sql
+php bin/console doctrine:schema:update --force
+php bin/console doctrine:generate:entities OCPlatformBundle:Advert
+php app/console cache:clear
+
+
+php bin/console doctrine:fixtures:load
+
+
+
+----  Doctrine -----
+
+$qb = $this->createQueryBuilder('a');
+$qb
+     ->innerJoin('a.categories', 'c')
+     ->addSelect('c')
+   
+   $qb->where($qb->expr()->in('c.name', $categoryNames));
+   $qb
+         ->getQuery()
+         ->getResult()
+
+--- repository ----
+
+$repository = $this
+  ->getDoctrine()
+  ->getManager()
+  ->getRepository('OCPlatformBundle:Advert')
+;
+findAll,findBy,findOneBy,findByX,findOneByX
